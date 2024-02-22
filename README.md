@@ -4,12 +4,11 @@ Several project templates with different technologies
 
 ## Available templates
 
-None
+- PHP
+  - Composer
 
 ## Templates to do
 
-- PHP
-  - Composer
 - C++
   - Conan
   - Cmake

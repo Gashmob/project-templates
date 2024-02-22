@@ -1,0 +1,28 @@
+{
+    "name": "gashmob/project-template",
+    "description": "Template for PHP project with composer",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Gashmob\\ProjectTemplate\\": "include/"
+        }
+    },
+    "require": {
+        "php": ">= 8.2"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gashmob\\ProjectTemplate\\": "tests/unit"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "vimeo/psalm": "^5.22",
+        "phpunit/phpunit": "^10"
+    },
+    "scripts": {
+        "unit-test": "phpunit --testsuite unit",
+        "phpstan": "phpstan analyse -c phpstan.neon",
+        "psalm": "psalm -c psalm.xml"
+    }
+}
