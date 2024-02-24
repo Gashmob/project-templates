@@ -11,4 +11,8 @@ Several project templates with different technologies
 
 - C++
   - Conan
+    - executable
+    - lib
   - Cmake
+    - executable
+    - lib
