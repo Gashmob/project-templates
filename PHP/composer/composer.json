@@ -18,7 +18,7 @@
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "vimeo/psalm": "^5.22",
-        "phpunit/phpunit": "^10"
+        "phpunit/phpunit": "^11"
     },
     "scripts": {
         "unit-test": "phpunit --testsuite unit",
