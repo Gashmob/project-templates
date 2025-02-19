@@ -6,13 +6,10 @@ Several project templates with different technologies
 
 - PHP
   - Composer
+- CPP
+  - library
 
 ## Templates to do
 
-- C++
-  - Conan
-    - executable
-    - lib
-  - Cmake
-    - executable
-    - lib
+- CPP
+  - executable
