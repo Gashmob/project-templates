@@ -17,7 +17,6 @@ pkgs.mkShellNoCC {
     pkgs.cmake
     pkgs.ninja
     pkgs.clang
-    pkgs.lcov
     pkgs.dpkg
     pkgs.rpm
     pkgs.nodejs_20
