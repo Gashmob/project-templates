@@ -18,3 +18,4 @@ echo -e "    \033[32mDone\033[0m"
 
 # Version to change manually
 echo -e " -> You must change version manually in some tests files"
+echo -e "    cmake/package/my_lib-config.cmake.in"

@@ -9,14 +9,13 @@ let
   };
 in
 
-pkgs.mkShellNoCC {
+pkgs.mkShell {
   name = "my_lib-dev-env";
 
   packages = [
     pkgs.git
     pkgs.cmake
     pkgs.ninja
-    pkgs.clang
     pkgs.dpkg
     pkgs.rpm
     pkgs.nodejs_20

@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
 
-# Nix dependencies
-file(GLOB NIX_STORE_LIB LIST_DIRECTORIES true "/nix/store/*/lib/cmake/*")
-message(DEBUG NIX_STORE_LIB=${NIX_STORE_LIB})
-list(APPEND CMAKE_PREFIX_PATH ${NIX_STORE_LIB})
-file(GLOB NIX_STORE_BIN LIST_DIRECTORIES true "/nix/store/*/bin/")
-message(DEBUG NIX_STORE_BIN=${NIX_STORE_BIN})
-list(APPEND CMAKE_PROGRAM_PATH ${NIX_STORE_BIN})
-
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -49,7 +41,10 @@ message(DEBUG SRC_FILES=${SRC_FILES})
 
 add_library(my_lib ${SRC_FILES})
 
-target_include_directories(my_lib PUBLIC "${PROJECT_SOURCE_DIR}/include")
+target_include_directories(my_lib PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>  # <prefix>/include
+)
 
 target_compile_definitions(my_lib
         PUBLIC LIB_VERSION="${LIB_VERSION}"

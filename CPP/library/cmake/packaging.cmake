@@ -21,6 +21,9 @@
 # SOFTWARE.
 include_guard()
 
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+
 function(lib_package)
     set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
     set(CPACK_PACKAGE_VENDOR "lib developers")
@@ -38,6 +41,35 @@ function(lib_package)
     set(CPACK_RPM_PACKAGE_GROUP "Development/Tools")
     set(CPACK_RPM_PACKAGE_DESCRIPTION "My library")
     set(CPACK_RPM_CHANGELOG_FILE "${CMAKE_CURRENT_BINARY_DIR}/changelog")
+
+    # CMake package
+    set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/my_lib CACHE PATH "Location of header files")
+    set(MY_LIB_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/my_lib" CACHE STRING "Installation directory for cmake files, relative to ${CMAKE_INSTALL_PREFIX}.")
+    set(version_config "${PROJECT_BINARY_DIR}/my_lib-config-version.cmake")
+    set(project_config "${PROJECT_BINARY_DIR}/my_lib-config.cmake")
+    set(targets_export_name my_lib-targets)
+    set(PACKAGE_TEMPLATE_DIR "${PROJECT_SOURCE_DIR}/cmake/package")
+    write_basic_package_version_file(
+            ${version_config}
+            VERSION ${VERSION}
+            COMPATIBILITY SameMajorVersion
+            ARCH_INDEPENDENT
+    )
+    configure_package_config_file(
+            "${PACKAGE_TEMPLATE_DIR}/my_lib-config.cmake.in"
+            ${project_config}
+            INSTALL_DESTINATION ${MY_LIB_CMAKE_DIR}
+            PATH_VARS INCLUDE_INSTALL_DIR
+    )
+    export(TARGETS my_lib NAMESPACE my_lib::
+            FILE ${PROJECT_BINARY_DIR}/${targets_export_name}.cmake)
+
+    install(FILES ${project_config} ${version_config}
+            DESTINATION ${MY_LIB_CMAKE_DIR})
+    install(EXPORT ${targets_export_name} DESTINATION ${MY_LIB_CMAKE_DIR}
+            NAMESPACE my_lib::)
+    install(TARGETS my_lib EXPORT ${targets_export_name} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    install(FILES ${PROJECT_SOURCE_DIR}/include/my_lib.h DESTINATION ${INCLUDE_INSTALL_DIR})
 
     include(CPack)
 endfunction()
